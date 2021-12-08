@@ -36,12 +36,29 @@ function removePlayer(id){
     delete game.players[id];
 }
 
+function movePlayer(id, dir){
+    switch(dir){
+        case "up":
+            game.players[id].y -= game.settings.speed
+            break
+        case "down":
+            game.players[id].y += game.settings.speed
+            break
+        case "left":
+            game.players[id].x -= game.settings.speed
+            break
+        case "right":
+            game.players[id].x += game.settings.speed          
+    }
+}
+
 var game = {
     settings: {
         playerW: 30,
         playerH: 30,
         worldW: 500,
-        worldH: 500
+        worldH: 500,
+        speed: 12,
     },
     players: {},
     addPlayer: addPlayer,
@@ -60,6 +77,10 @@ io.on('connection', (socket) => {
     console.log("> New Client " + socket.id);
     game.addPlayer(socket.id);
     game.updateGame();
+    socket.on('move-player',(dir) => {
+        movePlayer(socket.id, dir)
+        game.updateGame();
+    })
 });
 
 

@@ -31,4 +31,21 @@ socket.on('player-remove', (id) => {
     delete gamestate.players[id]
 })
 
+function movePlayer(dir){
+    socket.emit('move-player', dir);
+}
 
+document.addEventListener('keydown', (e) => {
+    if(e.key == 'w'){
+        movePlayer('up');
+    }
+    if(e.key == 'a'){
+        movePlayer('left');
+    }
+    if(e.key == 's'){
+        movePlayer('down');
+    }
+    if(e.key == 'd'){
+        movePlayer('right');
+    }
+})
