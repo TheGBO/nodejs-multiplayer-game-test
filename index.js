@@ -20,7 +20,7 @@ app.use('/', (req, res) => {
 })
 
 const io = socketIo.listen(server);
-server.listen(process.env.PORT);
+server.listen(process.env.PORT || 6088);
 //game 
 
 function addPlayer(id){
