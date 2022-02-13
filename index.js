@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const server = require('http').createServer(app);
+require('dotenv').config();
 const socketIo = require('socket.io')(server, {
   cors: {
     origin: '*',
